@@ -1,0 +1,26 @@
+<!-- login.component.html -->
+<div class="login-container">
+  <div class="login-card">
+    <img src="assets/logo.png" alt="ULTATEL" class="logo">
+    <h2>Welcome</h2>
+    <form (ngSubmit)="Login()" #loginForm="ngForm">
+      <div class="form-group">
+        <input type="text" id="userName" class="form-control" placeholder="Username" [(ngModel)]="user.userName" name="userName" required>
+      </div>
+
+      <div class="form-group">
+        <div class="input-group" style="height:38px;">
+          <input  style="height:100%;" type="password" id="password" class="form-control" [type]="hide ? 'password' : 'text'" placeholder="Password" [(ngModel)]="user.password" name="password" required>
+          <div style="height:100%;" class="input-group-append">
+            <button style="height:100%;" type="button" class="btn btn-outline-secondary" (click)="hide = !hide">
+              <i [ngClass]="hide ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Login</button>
+    </form>
+    <a routerLink="/register" class="register-link">Register</a>
+  </div>
+</div>

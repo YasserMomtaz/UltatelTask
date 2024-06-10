@@ -1,0 +1,78 @@
+<div class="register-container">
+  <div class="register-form">
+    <div class="logoContainer">
+      <img src="assets/logo.png" alt="ULTATEL Logo" class="logo" />
+    </div>
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          required
+          class="form-control"
+        />
+        <span *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-danger">
+          Username is required.
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          (input)="checkPasswordStrength()"
+          required
+          [ngClass]="{
+            'weak-password': passwordStrength === 'weak' || passwordStrength === 'very-weak',
+            'strong-password': passwordStrength === 'strong'
+          }"
+          class="form-control"
+        />
+        <div class="password-strength" [ngClass]="passwordStrength">
+          <small>{{ passwordStrength }}</small>
+        </div>
+        <span *ngIf="passwordStrength !== 'strong'" class="text-danger">
+          {{ passwordStrengthText }}
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          required
+          class="form-control"
+        />
+        <span *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched" class="text-danger">
+          Passwords do not match.
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          required
+          class="form-control"
+        />
+        <span *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-danger">
+          Enter a valid email.
+        </span>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || passwordStrength !== 'strong'">Register</button>
+      <a routerLink="/login" class="login-link">Login</a>
+    </form>
+  </div>
+  <!-- <div class="password-hints">
+    <div class="hint" *ngFor="let hint of passwordHints">
+      <input type="password" [value]="hint.password" disabled class="form-control"/>
+      <div class="hint-text" [ngClass]="hint.strength">{{ hint.text }}</div>
+    </div>
+  </div> -->
+</div>
