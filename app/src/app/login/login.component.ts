@@ -5,6 +5,7 @@ import { Token } from '../dto/token.dto';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
 import { DecodedToken } from '../dto/decoded.dto';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -30,12 +31,21 @@ export class LoginComponent {
           localStorage.setItem('token', data.access_token);
           const decodedToken: DecodedToken = jwtDecode(data.access_token);
           this.loginService.setUserId(decodedToken.sub);
-          this.router.navigate(['tasks'], { relativeTo: this.route });
+          this.router.navigate(['/student']);
         }
       },
       data => {
-        alert('Wrong password');
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Password or Username",
+          footer: '<a href="/register">You Don\'t have an Account?</a>'
+        });
       }
     );
+  }
+
+  Register(){
+    this.router.navigate(['/register']);
   }
 }

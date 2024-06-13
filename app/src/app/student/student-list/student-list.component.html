@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="header">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+    </div>
+  
+    <h2>Students</h2>
+  
+    <div class="search-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="searchName">Name</label>
+          <input type="text" id="searchName" class="form-control" placeholder="Name" [(ngModel)]="searchName">
+        </div>
+        <div class="form-group">
+          <label for="searchAgeFrom">Age</label>
+          <input type="number" id="searchAgeFrom" class="form-control" placeholder="From" [(ngModel)]="searchAgeFrom">
+        </div>
+        <div class="form-group">
+          <label for="searchAgeTo">&nbsp;</label>
+          <input type="number" id="searchAgeTo" class="form-control" placeholder="To" [(ngModel)]="searchAgeTo">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="searchCountry">Country</label>
+          <select id="searchCountry" class="form-control" [(ngModel)]="searchCountry">
+            <option value="">Country</option>
+            <option *ngFor="let country of countries">{{ country }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="searchGender">Gender</label>
+          <select id="searchGender" class="form-control" [(ngModel)]="searchGender">
+            <option value="">Gender</option>
+            <option *ngFor="let gender of genders">{{ gender }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <button class="btn btn-primary" (click)="handleSearch()">Search</button>
+        <button class="btn btn-secondary" (click)="resetSearch()">Reset</button>
+      </div>
+    </div>
+  
+    <div class="btn-add-new">
+      <button class="btn btn-success" (click)="addNewStudent()">+ Add New</button>
+    </div>
+  
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of filteredStudents  | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems:totalItems }" >
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td>{{ student.gender }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.country }}</td>
+            <td>
+              <button class="btn btn-sm btn-warning" (click)="editStudent(student.id)"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-sm btn-danger" (click)="deleteStudent(student.id)"><i class="fas fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="form-group">
+        <label for="itemsPerPage">Items Per Page</label>
+        <select id="itemsPerPage" class="form-control small-dropdown" [(ngModel)]="itemsPerPage">
+            <option *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">{{num}}</option>
+        </select>
+    </div>
+    <div class="has-text-centered">
+        <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+        <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+    </div>
+  
+  </div>
+  

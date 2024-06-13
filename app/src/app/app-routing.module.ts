@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { TaskComponent } from './task/task.component';
 import { LoginGuard } from './guards/login.guard';
+import { StudentListComponent } from './student/student-list/student-list.component';
 
 const routes: Routes = [{path:"register",component:RegisterComponent},
 {path:"",component:LoginComponent},
-{path:"tasks",component:TaskComponent,canActivate:[LoginGuard]},
+{path:"student",component:StudentListComponent,canActivate:[LoginGuard]},
 {path:"**",component:LoginComponent}];
 
 @NgModule({

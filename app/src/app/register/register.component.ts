@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../Service/login.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -61,7 +62,12 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid && this.passwordStrength === 'strong') {
       const { username, email, password } = this.registerForm.value;
-      this.authService.register(username, email, password).subscribe(() => {
+      this.authService.register(username, email, password).subscribe((data) => {
+        Swal.fire({
+          title: "Good job!",
+          text: "User registered successfully",
+          icon: "success"
+        });
         this.router.navigate(['/login']);
       });
     }

@@ -1,0 +1,57 @@
+
+<div class="register-container">
+    <div class="register-form">
+      <div class="logoContainer">
+        <img src="assets/logo.png" alt="Logo" class="logo">
+      </div>
+      <h2>Add Student</h2>
+      <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" formControlName="name">
+          <div *ngIf="studentForm.get('name')?.invalid && (studentForm.get('name')?.dirty || studentForm.get('name')?.touched)">
+            <span *ngIf="studentForm.get('name')?.errors?.['required']" class="invalid">Name is required.</span>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="dateOfBirth">Date of Birth</label>
+          <div class="input-group">
+            <input type="date" id="dob" class="form-control" formControlName="dob">
+            <div *ngIf="studentForm.get('dob')?.invalid && (studentForm.get('dob')?.dirty || studentForm.get('dateOfBirth')?.touched)">
+              <div *ngIf="studentForm.get('dateOfBirth')?.errors?.['required']" class="invalid">Date of Birth is required.</div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <ng-select [items]="genders" bindLabel="gender" formControlName="gender" placeholder="Select gender"></ng-select>
+          <div *ngIf="studentForm.get('gender')?.invalid && (studentForm.get('gender')?.dirty || studentForm.get('gender')?.touched)">
+            <div *ngIf="studentForm.get('gender')?.errors?.['required']" class="invalid">Gender is required.</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="country">Country</label>
+          <ng-select [items]="countries" bindLabel="country" formControlName="country" placeholder="Select country"></ng-select>
+          <div *ngIf="studentForm.get('country')?.invalid && (studentForm.get('country')?.dirty || studentForm.get('country')?.touched)">
+            <div *ngIf="studentForm.get('country')?.errors?.['required']" class="invalid">Country is required.</div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" formControlName="email">
+          <div *ngIf="studentForm.get('email')?.invalid && (studentForm.get('email')?.dirty || studentForm.get('email')?.touched)">
+            <div *ngIf="studentForm.get('email')?.errors?.['required']" class="invalid">Email is required.</div>
+            <div *ngIf="studentForm.get('email')?.errors?.['email']" class="invalid">Please enter a valid email address.</div>
+          </div>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid">Save</button>
+        <a class="login-link" (click)="close()">Close</a>
+      </form>
+    </div>
+  </div>
+  
